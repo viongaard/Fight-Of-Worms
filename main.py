@@ -15,6 +15,7 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 BROWN = (125, 100, 0)
 
+
 class Worm:
     def __init__(self, tag):
         self.tag = tag
@@ -49,8 +50,12 @@ class Worm:
 
     def draw_elements(self, screen):
         for segment in self.worm:
-            pygame.draw.rect(screen, self.color, pygame.Rect(segment[0], segment[1], CELL_SIZE, CELL_SIZE))
-        pygame.draw.rect(screen, BLUE if self.tag == 'PLAYER' else RED, pygame.Rect(self.food[0], self.food[1], CELL_SIZE, CELL_SIZE))
+            pygame.draw.rect(screen, self.color,
+                             pygame.Rect(segment[0], segment[1], CELL_SIZE,
+                                         CELL_SIZE))
+        pygame.draw.rect(screen, BLUE if self.tag == 'PLAYER' else RED,
+                         pygame.Rect(self.food[0], self.food[1], CELL_SIZE,
+                                     CELL_SIZE))
 
     def check_food(self):
         if self.worm[0] == self.food:
@@ -58,9 +63,11 @@ class Worm:
             self.food = self.generate_food()
 
     def check_walls(self):
-        if any(coord < CELL_SIZE or coord >= size - CELL_SIZE for coord, size in zip(self.worm[0], (WIDTH, HEIGHT))):
+        if any(coord < CELL_SIZE or coord >= size - CELL_SIZE for coord, size
+               in zip(self.worm[0], (WIDTH, HEIGHT))):
             return True
         return False
+
 
 def handle_events(player_worm):
     for event in pygame.event.get():
@@ -77,6 +84,7 @@ def handle_events(player_worm):
             elif event.key == pygame.K_RIGHT and player_worm.direction != 'LEFT':
                 player_worm.direction = 'RIGHT'
     return True
+
 
 def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -108,6 +116,7 @@ def main():
         bot_worm.draw_elements(screen)
         pygame.display.flip()
         clock.tick(10)
+
 
 if __name__ == '__main__':
     main()
